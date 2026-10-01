@@ -126,8 +126,8 @@
             принять их без хаоса.
           </p>
           <div class="hero-btns">
-            <a href="#contact" class="btn btn-accent"
-              >Получить бесплатное демо</a
+            <a href="#contact" data-modal class="btn btn-accent"
+              >Получить план продвижения</a
             >
             <a href="#" data-wa class="btn btn-line"
               ><svg class="ic" width="20" height="20"><use href="#i-wa" /></svg
@@ -196,7 +196,7 @@
               >
             </div>
           </div>
-          <a href="#contact" class="btn btn-white"
+          <a href="#contact" data-modal class="btn btn-white"
             >Разместить клинику на 103.KZ</a
           >
         </div>
@@ -240,6 +240,7 @@
               <div class="product-btns">
                 <a
                   href="#contact"
+                  data-modal
                   class="btn btn-sm btn-teal"
                   data-topic="Размещение клиники на 103.KZ"
                   >Разместить клинику</a
@@ -287,6 +288,7 @@
               <div class="product-btns">
                 <a
                   href="#contact"
+                  data-modal
                   class="btn btn-sm btn-accent"
                   data-topic="Демо МИС MedElement"
                   >Запросить демо</a
@@ -399,7 +401,7 @@
             Оставьте заявку — она придёт нам в WhatsApp, мы перезвоним,
             посмотрим вашу нишу и предложим формат продвижения на 103.KZ.
           </p>
-          <form class="form" id="leadForm" novalidate>
+          <form class="form" data-lead-form novalidate>
             <label class="field"
               >Имя<input
                 type="text"
@@ -428,7 +430,7 @@
               ><input type="checkbox" name="agree" required />Согласен(на) на
               обработку персональных данных</label
             >
-            <p class="form-msg" id="formMsg" role="alert"></p>
+            <p class="form-msg" role="alert"></p>
             <button type="submit" class="btn btn-accent">
               Отправить заявку в WhatsApp
             </button>
@@ -436,12 +438,12 @@
           <div class="contact-links">
             <a href="#" data-wa
               ><svg class="ic" width="20" height="20"><use href="#i-wa" /></svg
-              ><span data-wa-text>WhatsApp: [+7 ___]</span></a
+              ><span data-wa-text>WhatsApp: +7 (707) 674-45-65</span></a
             >
-            <a href="tel:+70000000000"
+            <a href="tel:+77076744565"
               ><svg class="ic" width="20" height="20">
                 <use href="#i-phone" /></svg
-              >[+7 (___) ___-__-__]</a
+              >+7 (707) 674-45-65</a
             >
           </div>
         </div>
@@ -457,7 +459,7 @@
           </div>
         </div>
         <div class="footer-contacts">
-          <a href="tel:+70000000000">[+7 (___) ___-__-__]</a
+          <a href="tel:+77076744565">+7 (707) 674-45-65</a
           ><a href="mailto:info@medca.kz">[info@medca.kz]</a>
           <div>[Город, адрес]</div>
         </div>
@@ -467,6 +469,69 @@
         <div class="copy">© 2026 medca.kz · [ТОО «___», БИН ___]</div>
       </div>
     </footer>
+
+    <dialog class="modal" id="leadModal" aria-labelledby="modalTitle">
+      <div class="modal-box">
+        <button
+          type="button"
+          class="modal-close"
+          data-close
+          aria-label="Закрыть"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <h2 id="modalTitle">Оставить заявку</h2>
+        <p class="modal-text">
+          Заявка придёт нам в WhatsApp. Мы перезвоним и предложим формат
+          продвижения.
+        </p>
+        <form class="form" data-lead-form novalidate>
+          <label class="field"
+            >Имя<input
+              type="text"
+              name="name"
+              placeholder="Как к вам обращаться"
+              autocomplete="name"
+              required
+          /></label>
+          <label class="field"
+            >Телефон<input
+              type="tel"
+              name="phone"
+              placeholder="+7 (707) 674-45-65"
+              autocomplete="tel"
+              inputmode="tel"
+              required
+          /></label>
+          <label class="field"
+            >Название клиники<input
+              type="text"
+              name="clinic"
+              placeholder="Например, «Клиника здоровья»"
+              autocomplete="organization"
+          /></label>
+          <label class="agree"
+            ><input type="checkbox" name="agree" required />Согласен(на) на
+            обработку персональных данных</label
+          >
+          <p class="form-msg" role="alert"></p>
+          <button type="submit" class="btn btn-accent">
+            Отправить заявку в WhatsApp
+          </button>
+        </form>
+      </div>
+    </dialog>
 
     <script src="js/main.js"></script>
   </body>
