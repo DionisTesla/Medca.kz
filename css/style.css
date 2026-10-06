@@ -222,9 +222,9 @@ h2 {
 	min-height: 1020px;
 	padding: 36px 0 40px;
 	background-color: rgb(230, 223, 211);
-	background-image: linear-gradient(to bottom, rgb(230, 223, 211) 0%, rgb(230, 223, 211) 30%, rgba(230, 223, 211, 0) 52%), url(../images/hero.jpg);
+	background-image: linear-gradient(to bottom, rgb(230, 223, 211) 0%, rgb(230, 223, 211) 28%, rgba(230, 223, 211, 0.75) 42%, rgba(230, 223, 211, 0.3) 52%, rgba(230, 223, 211, 0) 62%), url(../images/hero.jpg);
 	background-position: center, center bottom;
-	background-size: 100% 100%, 100% auto;
+	background-size: 100% 100%, auto 530px;
 	background-repeat: no-repeat;
 }
 
@@ -350,6 +350,14 @@ h2 {
 	font-size: 14px;
 }
 
+/* .underlined-one {
+	font-size: 32px;
+	color: black;
+	text-decoration: underline;
+	text-underline-offset: 0px;
+	display: inline-block;
+} */
+
 /* ===== Маркетинг ===== */
 
 .marketing {
@@ -447,7 +455,7 @@ h2 {
 	width: 56px;
 	height: 56px;
 	border-radius: 16px;
-	border: 1.5px dashed #B9AF9E;
+	/* border: 1.5px dashed #B9AF9E; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -771,6 +779,10 @@ h2 {
 		font-size: 30px;
 	}
 
+	.hero {
+		background-size: 100% 100%, 100% auto;
+	}
+
 	.section {
 		padding: 72px 0;
 	}
@@ -1047,4 +1059,141 @@ body.modal-open {
 	.modal[open] {
 		animation: none;
 	}
+}
+
+/* ===== Модальное окно с тарифами ===== */
+
+.modal-wide {
+	max-width: 1080px;
+}
+
+.tariffs-hint {
+	display: none;
+	margin: 0;
+	color: var(--muted);
+	font-size: 13px;
+}
+
+.tariffs {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.plan {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: 24px 20px;
+	border: 1px solid var(--line);
+	border-radius: 24px;
+	background: var(--white);
+}
+
+.plan-label {
+	color: var(--teal);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.plan h3 {
+	margin-top: 4px;
+	font-size: 20px;
+}
+
+.plan-price {
+	margin-top: 8px;
+	font-family: var(--f-head);
+	font-size: 26px;
+	font-weight: 500;
+	letter-spacing: -0.02em;
+}
+
+.plan-price small {
+	margin-left: 6px;
+	color: var(--muted);
+	font-family: var(--f-body);
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: 0;
+}
+
+.plan .checks {
+	color: var(--teal);
+}
+
+.plan .checks .ic {
+	margin-top: 2px;
+}
+
+.plan .checks span {
+	color: var(--ink);
+}
+
+.plan .checks small {
+	display: block;
+	color: var(--muted);
+	font-size: 14px;
+}
+
+.plan-foot {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: auto;
+}
+
+.plan-gift {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 16px;
+	border: 1px solid var(--teal);
+	border-radius: 16px;
+	background: rgba(15, 107, 104, 0.08);
+	color: var(--teal);
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.plan-note {
+	margin: 0;
+	color: var(--muted);
+	font-size: 12px;
+}
+
+@media (min-width: 768px) {
+	.tariffs-hint {
+		display: block;
+	}
+
+	.tariffs {
+		flex-direction: row;
+		margin: 0 -36px;
+		padding: 4px 36px 8px;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-padding: 0 36px;
+		scrollbar-width: thin;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.plan {
+		flex: 0 0 320px;
+		scroll-snap-align: start;
+	}
+}
+
+/* на широких экранах все три пакета помещаются, подсказка не нужна */
+@media (min-width: 1112px) {
+	.tariffs-hint {
+		display: none;
+	}
+}
+
+/* страница под открытым окном не прокручивается (в т.ч. в Safari на iPhone) */
+html:has(dialog[open]) {
+	overflow: hidden;
 }

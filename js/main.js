@@ -165,6 +165,111 @@
     );
   });
 
+  /* ===== Модальное окно с тарифами ===== */
+  // Чтобы изменить пакеты, цены или состав, правьте только массив TARIFFS.
+  // Строка в items = обычный пункт; пара ["заголовок", "пояснение"] = пункт с пояснением.
+  var START_ITEMS = [
+    "размещение вашей клиники на 12 месяцев",
+    "персональная страница клиники",
+    "размещение до 5 рубрик на выбор",
+    "интерактивное отображение на карте",
+    "модерация отзывов",
+    "доступ в личный кабинет для отслеживания результатов и эффективности",
+    "сопровождение персональным менеджером",
+    "до 10 специалистов",
+  ];
+
+  var TARIFFS = [
+    { label: "Пакет", name: "START", price: "599 000 тг", items: START_ITEMS },
+    { label: "Пакет", name: "START STOM", price: "399 000 тг", items: START_ITEMS },
+    {
+      name: "Мини+",
+      price: "320 000 тг",
+      period: "/ 12 месяцев",
+      items: [
+        ["Профиль клиники", "с описанием услуг и специалистов"],
+        ["Кросс-продвижение клиники", "на страницах других клиник"],
+        ["Отзывы о клинике", "с подтверждением"],
+        ["Личный кабинет", "с аналитикой, отчётами"],
+        "3–7 специалистов",
+      ],
+      gift: "В подарок отметка «Проверенный врач»",
+    },
+  ];
+
+  var tariffModal = document.getElementById("tariffsModal");
+  var tariffList = document.getElementById("tariffList");
+  var GIFT_ICON =
+    '<svg class="ic" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M5 12v8h14v-8M12 8v12M12 8S12 4 9.5 4a2 2 0 0 0 0 4M12 8s0-4 2.5-4a2 2 0 0 1 0 4"></path></svg>';
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  tariffList.innerHTML = TARIFFS.map(function (t) {
+    // Текст, который попадёт в WhatsApp: название пакета и цена
+    var text =
+      "Здравствуйте! Хочу подключить пакет «" + t.name + "» (" + t.price +
+      (t.period ? " " + t.period : "") + ") на 103.KZ.";
+    var items = t.items.map(function (it) {
+      var isPair = Array.isArray(it);
+      return (
+        '<li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-check"></use></svg><span>' +
+        esc(isPair ? it[0] : it) +
+        (isPair ? "<small>" + esc(it[1]) + "</small>" : "") +
+        "</span></li>"
+      );
+    }).join("");
+    return (
+      '<article class="plan"><div class="plan-head">' +
+      (t.label ? '<div class="plan-label">' + esc(t.label) + "</div>" : "") +
+      "<h3>" + esc(t.name) + "</h3>" +
+      '<div class="plan-price">' + esc(t.price) +
+      (t.period ? "<small>" + esc(t.period) + "</small>" : "") + "</div></div>" +
+      '<ul class="checks">' + items + "</ul>" +
+      '<div class="plan-foot">' +
+      (t.gift ? '<div class="plan-gift">' + GIFT_ICON + "<span>" + esc(t.gift) + "</span></div>" : "") +
+      '<a class="btn btn-teal plan-cta" href="' + waBase + "?text=" + encodeURIComponent(text) +
+      '" target="_blank" rel="noopener">Оставить заявку</a>' +
+      '<p class="plan-note">*единоразовое подключение</p></div></article>'
+    );
+  }).join("");
+
+  function openTariffs() {
+    setMenu(false);
+    if (typeof tariffModal.showModal === "function") tariffModal.showModal();
+    else tariffModal.setAttribute("open", "");
+    document.body.classList.add("modal-open");
+    tariffList.scrollLeft = 0;
+  }
+
+  function closeTariffs() {
+    if (typeof tariffModal.close === "function") tariffModal.close();
+    else tariffModal.removeAttribute("open");
+    document.body.classList.remove("modal-open");
+  }
+
+  document.querySelectorAll("[data-tariffs]").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      openTariffs();
+    });
+  });
+  tariffModal.querySelectorAll("[data-close]").forEach(function (el) {
+    el.addEventListener("click", closeTariffs);
+  });
+  tariffModal.addEventListener("click", function (e) {
+    if (e.target === tariffModal) closeTariffs(); // клик по тёмному фону
+  });
+  tariffModal.addEventListener("close", function () {
+    document.body.classList.remove("modal-open");
+  });
+  // После перехода в WhatsApp окно с тарифами закрываем
+  tariffList.addEventListener("click", function (e) {
+    if (e.target.closest(".plan-cta")) setTimeout(closeTariffs, 300);
+  });
+
   /* ===== Плавное появление блоков ===== */
   if (
     "IntersectionObserver" in window &&
