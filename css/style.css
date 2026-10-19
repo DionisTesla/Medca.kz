@@ -164,6 +164,12 @@ h2 {
 	color: var(--accent);
 }
 
+.logo img {
+	display: block;
+	width: auto;
+	height: 34px;
+}
+
 .header-actions {
 	display: flex;
 	align-items: center;
@@ -492,6 +498,7 @@ h2 {
 
 .product-btns {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 10px;
 }
 
@@ -711,8 +718,8 @@ h2 {
 	gap: 20px;
 }
 
-.footer .logo {
-	font-size: 20px;
+.footer .logo img {
+	height: 40px;
 }
 
 .footer-desc {
@@ -775,6 +782,10 @@ h2 {
 		--pad: 32px;
 	}
 
+	.logo img {
+		height: 38px;
+	}
+
 	h2 {
 		font-size: 30px;
 	}
@@ -835,6 +846,10 @@ h2 {
 @media (min-width: 1024px) {
 	:root {
 		--pad: 40px;
+	}
+
+	.logo img {
+		height: 42px;
 	}
 
 	.header .container {
