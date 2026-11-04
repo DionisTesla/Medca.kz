@@ -165,9 +165,10 @@
     );
   });
 
-  /* ===== Модальное окно с тарифами ===== */
-  // Чтобы изменить пакеты, цены или состав, правьте только массив TARIFFS.
+  /* ===== Модальное окно с пакетами (одно окно на 103.KZ и MedElement) ===== */
+  // Чтобы изменить пакеты, цены или состав, правьте только объект CATALOGS.
   // Строка в items = обычный пункт; пара ["заголовок", "пояснение"] = пункт с пояснением.
+  // Какой набор открыть, задаёт атрибут кнопки: data-tariffs="portal" или data-tariffs="mis".
   var START_ITEMS = [
     "размещение вашей клиники на 12 месяцев",
     "персональная страница клиники",
@@ -179,69 +180,204 @@
     "до 10 специалистов",
   ];
 
-  var TARIFFS = [
-    { label: "Пакет", name: "START", price: "599 000 тг", items: START_ITEMS },
-    { label: "Пакет", name: "START STOM", price: "399 000 тг", items: START_ITEMS },
-    {
-      name: "Мини+",
-      price: "320 000 тг",
-      period: "/ 12 месяцев",
-      items: [
-        ["Профиль клиники", "с описанием услуг и специалистов"],
-        ["Кросс-продвижение клиники", "на страницах других клиник"],
-        ["Отзывы о клинике", "с подтверждением"],
-        ["Личный кабинет", "с аналитикой, отчётами"],
-        "3–7 специалистов",
+  var MODULES = "Модули «Онлайн-запись» и «Телемедицина»";
+
+  var CATALOGS = {
+    // ---------- Портал 103.KZ ----------
+    portal: {
+      title: "Пакеты размещения на 103.KZ",
+      target: "на 103.KZ", // для текста в WhatsApp
+      btn: "btn-teal",
+      plans: [
+        { label: "Пакет", name: "START", price: "599 000 тг", items: START_ITEMS, note: "*единоразовое подключение" },
+        { label: "Пакет", name: "START STOM", price: "399 000 тг", items: START_ITEMS, note: "*единоразовое подключение" },
+        {
+          name: "Мини+",
+          price: "320 000 тг",
+          period: "/ 12 месяцев",
+          items: [
+            ["Профиль клиники", "с описанием услуг и специалистов"],
+            ["Кросс-продвижение клиники", "на страницах других клиник"],
+            ["Отзывы о клинике", "с подтверждением"],
+            ["Личный кабинет", "с аналитикой, отчётами"],
+            "3–7 специалистов",
+          ],
+          gift: "В подарок отметка «Проверенный врач»",
+          note: "*единоразовое подключение",
+        },
       ],
-      gift: "В подарок отметка «Проверенный врач»",
     },
-  ];
+
+    // ---------- МИС MedElement ----------
+    mis: {
+      title: "Пакеты МИС MedElement",
+      target: "в МИС MedElement",
+      btn: "btn-accent",
+      plans: [
+        {
+          label: "Пакет", name: "1+1", price: "136 000 тг", period: "за 1 год",
+          items: ["1 рабочее место + 1 рабочее место в подарок"],
+        },
+        {
+          label: "Пакет", name: "2+1", price: "230 000 тг", period: "за 1 год",
+          items: ["2 рабочих места + 1 рабочее место в подарок", MODULES],
+        },
+        {
+          label: "Пакет", name: "4+1", price: "396 000 тг", period: "за 1 год",
+          items: ["4 рабочих места + 1 рабочее место в подарок", MODULES, "Сайт клиники на базе платформы"],
+        },
+      ],
+      // Примечание под пакетами
+      includes: {
+        title: "Пакеты включают:",
+        items: [
+          "Аренда сервиса МИС в течение года",
+          "Пусконаладка, настройка системы и обучение пользователей",
+          "Плановые обновления системы (новые функции) в течение года",
+          "Базовая консультационная поддержка",
+        ],
+      },
+    },
+
+    // ---------- MacDent ----------
+    // prices = варианты срока оплаты (выбранный попадёт в WhatsApp), meta = строки «название: значение»
+    macdent: {
+      title: "Прайс-лист MacDent",
+      lead: "Тарифы для клиники на 2 врача и неограниченное количество администраторов. По кнопке «Оставить заявку» откроется WhatsApp с готовым сообщением.",
+      kind: "тариф",
+      target: "в MacDent",
+      btn: "btn-light",
+      plans: [
+        {
+          label: "Тариф", name: "BRONZE",
+          prices: [
+            { p: "75 000 тг", per: "3 мес" },
+            { p: "136 000 тг", per: "6 мес" },
+            { p: "241 000 тг", per: "12 мес" },
+          ],
+          meta: [["Внедрение", "60 000 тг"], ["Пространство диска", "10 GB (KZ сервера)"]],
+          items: [
+            "Приёмы, пациенты, оплаты",
+            "Расчёт доходности, отчёты, статистика",
+            "Прейскурант и безопасность",
+            "Рассылка через расширение WhatsApp",
+          ],
+        },
+        {
+          label: "Тариф", name: "SILVER", price: "345 000 тг", period: "/ 12 мес",
+          meta: [["Внедрение", "60 000 тг"], ["Пространство диска", "20 GB (KZ сервера)"]],
+          items: ["Всё из тарифа «BRONZE»", "+ Задачи, врачебная часть, страховая компания"],
+        },
+        {
+          label: "Тариф", name: "GOLD", price: "432 000 тг", period: "/ 12 мес",
+          meta: [["Внедрение", "110 000 тг"], ["Пространство диска", "50 GB (KZ сервера)"]],
+          items: ["Всё из тарифов «BRONZE» и «SILVER»", "+ Финансы, учёт склада"],
+        },
+      ],
+    },
+  };
 
   var tariffModal = document.getElementById("tariffsModal");
   var tariffList = document.getElementById("tariffList");
+  var tariffTitle = document.getElementById("tariffsTitle");
+  var tariffNote = document.getElementById("tariffsNote");
+  var tariffText = document.getElementById("tariffsText");
+  var DEFAULT_LEAD = tariffText.textContent.trim().replace(/\s+/g, " ");
   var GIFT_ICON =
     '<svg class="ic" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M5 12v8h14v-8M12 8v12M12 8S12 4 9.5 4a2 2 0 0 0 0 4M12 8s0-4 2.5-4a2 2 0 0 1 0 4"></path></svg>';
+  var CHECK_ICON = '<svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-check"></use></svg>';
 
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  tariffList.innerHTML = TARIFFS.map(function (t) {
-    // Текст, который попадёт в WhatsApp: название пакета и цена
-    var text =
-      "Здравствуйте! Хочу подключить пакет «" + t.name + "» (" + t.price +
-      (t.period ? " " + t.period : "") + ") на 103.KZ.";
-    var items = t.items.map(function (it) {
-      var isPair = Array.isArray(it);
+  function waLink(text) {
+    return waBase + "?text=" + encodeURIComponent(text);
+  }
+
+  function renderCatalog(key) {
+    var cat = CATALOGS[key] || CATALOGS.portal;
+    tariffModal.setAttribute("data-theme", CATALOGS[key] ? key : "portal");
+    tariffTitle.textContent = cat.title;
+    tariffText.textContent = cat.lead || DEFAULT_LEAD;
+
+    tariffList.innerHTML = cat.plans.map(function (t) {
+      // Текст, который попадёт в WhatsApp: название пакета (тарифа) и цена
+      function msg(price, period) {
+        return (
+          "Здравствуйте! Хочу подключить " + (cat.kind || "пакет") + " «" + t.name + "» (" + price +
+          (period ? " " + period : "") + ") " + cat.target + "."
+        );
+      }
+      var items = (t.items || []).map(function (it) {
+        var isPair = Array.isArray(it);
+        return (
+          "<li>" + CHECK_ICON + "<span>" + esc(isPair ? it[0] : it) +
+          (isPair ? "<small>" + esc(it[1]) + "</small>" : "") + "</span></li>"
+        );
+      }).join("");
+
+      // Цена: один вариант или переключатель срока (по умолчанию выбран последний, самый длинный)
+      var def, priceBlock;
+      if (t.prices) {
+        var last = t.prices.length - 1;
+        def = msg(t.prices[last].p, "/ " + t.prices[last].per);
+        priceBlock =
+          '<div class="price-opts" role="group" aria-label="Срок оплаты">' +
+          t.prices.map(function (o, i) {
+            return (
+              '<button type="button" class="price-opt" aria-pressed="' + (i === last) + '" data-href="' +
+              esc(waLink(msg(o.p, "/ " + o.per))) + '"><span>' + esc(o.p) + "</span><small>" + esc(o.per) + "</small></button>"
+            );
+          }).join("") + "</div>";
+      } else {
+        def = msg(t.price, t.period);
+        priceBlock =
+          '<div class="plan-price">' + esc(t.price) + (t.period ? "<small>" + esc(t.period) + "</small>" : "") + "</div>";
+      }
+
+      var meta = t.meta
+        ? '<dl class="plan-meta">' +
+          t.meta.map(function (m) { return "<div><dt>" + esc(m[0]) + "</dt><dd>" + esc(m[1]) + "</dd></div>"; }).join("") +
+          "</dl>"
+        : "";
+
       return (
-        '<li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-check"></use></svg><span>' +
-        esc(isPair ? it[0] : it) +
-        (isPair ? "<small>" + esc(it[1]) + "</small>" : "") +
-        "</span></li>"
+        '<article class="plan"><div class="plan-head">' +
+        (t.label ? '<div class="plan-label">' + esc(t.label) + "</div>" : "") +
+        "<h3>" + esc(t.name) + "</h3>" + priceBlock + "</div>" + meta +
+        '<ul class="checks">' + items + "</ul>" +
+        '<div class="plan-foot">' +
+        (t.gift ? '<div class="plan-gift">' + GIFT_ICON + "<span>" + esc(t.gift) + "</span></div>" : "") +
+        '<a class="btn ' + cat.btn + ' plan-cta" href="' + esc(waLink(def)) +
+        '" target="_blank" rel="noopener">Оставить заявку</a>' +
+        (t.note ? '<p class="plan-note">' + esc(t.note) + "</p>" : "") +
+        "</div></article>"
       );
     }).join("");
-    return (
-      '<article class="plan"><div class="plan-head">' +
-      (t.label ? '<div class="plan-label">' + esc(t.label) + "</div>" : "") +
-      "<h3>" + esc(t.name) + "</h3>" +
-      '<div class="plan-price">' + esc(t.price) +
-      (t.period ? "<small>" + esc(t.period) + "</small>" : "") + "</div></div>" +
-      '<ul class="checks">' + items + "</ul>" +
-      '<div class="plan-foot">' +
-      (t.gift ? '<div class="plan-gift">' + GIFT_ICON + "<span>" + esc(t.gift) + "</span></div>" : "") +
-      '<a class="btn btn-teal plan-cta" href="' + waBase + "?text=" + encodeURIComponent(text) +
-      '" target="_blank" rel="noopener">Оставить заявку</a>' +
-      '<p class="plan-note">*единоразовое подключение</p></div></article>'
-    );
-  }).join("");
 
-  function openTariffs() {
+    // Примечание под пакетами (есть не у всех наборов)
+    if (cat.includes) {
+      tariffNote.innerHTML =
+        "<b>" + esc(cat.includes.title) + "</b><ul>" +
+        cat.includes.items.map(function (it) { return "<li>" + CHECK_ICON + "<span>" + esc(it) + "</span></li>"; }).join("") +
+        "</ul>";
+      tariffNote.hidden = false;
+    } else {
+      tariffNote.innerHTML = "";
+      tariffNote.hidden = true;
+    }
+  }
+
+  function openTariffs(key) {
     setMenu(false);
+    renderCatalog(key);
     if (typeof tariffModal.showModal === "function") tariffModal.showModal();
     else tariffModal.setAttribute("open", "");
     document.body.classList.add("modal-open");
     tariffList.scrollLeft = 0;
+    tariffModal.scrollTop = 0;
   }
 
   function closeTariffs() {
@@ -253,7 +389,7 @@
   document.querySelectorAll("[data-tariffs]").forEach(function (el) {
     el.addEventListener("click", function (e) {
       e.preventDefault();
-      openTariffs();
+      openTariffs(el.getAttribute("data-tariffs") || "portal");
     });
   });
   tariffModal.querySelectorAll("[data-close]").forEach(function (el) {
@@ -265,8 +401,18 @@
   tariffModal.addEventListener("close", function () {
     document.body.classList.remove("modal-open");
   });
-  // После перехода в WhatsApp окно с тарифами закрываем
   tariffList.addEventListener("click", function (e) {
+    // Выбор срока оплаты: обновляем ссылку кнопки «Оставить заявку» этого тарифа
+    var opt = e.target.closest(".price-opt");
+    if (opt) {
+      var plan = opt.closest(".plan");
+      plan.querySelectorAll(".price-opt").forEach(function (o) {
+        o.setAttribute("aria-pressed", o === opt ? "true" : "false");
+      });
+      plan.querySelector(".plan-cta").href = opt.getAttribute("data-href");
+      return;
+    }
+    // После перехода в WhatsApp окно с пакетами закрываем
     if (e.target.closest(".plan-cta")) setTimeout(closeTariffs, 300);
   });
 

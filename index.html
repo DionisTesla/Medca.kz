@@ -17,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -57,14 +57,10 @@
     <header class="header">
       <div class="container">
         <a href="#top" class="logo" aria-label="medca.kz — на главную"
-          ><img
-            src="images/logo-horizontal.svg"
-            alt="medca.kz"
-            width="173"
-            height="34"
+          ><img src="images/logo.png" alt="medca.kz" width="168" height="38"
         /></a>
         <nav class="nav" id="nav" aria-label="Основное меню">
-          <a href="#marketing">Маркетинг</a>
+          <!-- <a href="#marketing">Маркетинг</a> -->
           <a href="#products">Продукты</a>
           <a href="#how">Как начать</a>
           <!-- <a href="#reviews">Отзывы</a> -->
@@ -126,11 +122,11 @@
         </svg>
         <div class="container">
           <div class="badge">Официальный партнёр 103.KZ и MedElement</div>
-          <h1>Больше пациентов для вашей клиники</h1>
+          <h1>Инструменты роста для вашей клиники</h1>
           <p>
-            Продвигаем клинику на медицинском портале 103.KZ: пациенты находят
-            вас, читают отзывы и записываются онлайн. А МИС MedElement помогает
-            принять их без хаоса.
+            Мы объединили лучшие решения для медицинского сектора по принципу
+            "одного окна". От Автоматизации процессов внутри организации, до
+            продвижения услуги и привлечения пациентов.
           </p>
           <div class="hero-btns">
             <a href="#contact" data-modal class="btn btn-accent"
@@ -144,7 +140,7 @@
         </div>
       </section>
 
-      <section class="stats">
+      <!-- <section class="stats">
         <div class="container">
           <div class="stat">
             <b>1.2 млн</b><span>посетителей 103.KZ в месяц</span>
@@ -159,9 +155,9 @@
             <b>1 день</b><span>от заявки до размещения</span>
           </div>
         </div>
-      </section>
+      </section> -->
 
-      <section id="marketing" class="section marketing">
+      <!-- <section id="marketing" class="section marketing">
         <div class="container">
           <div class="eyebrow">Маркетинг для клиники</div>
           <h2>Как 103.KZ приводит пациентов</h2>
@@ -207,7 +203,7 @@
             >Разместить клинику на 103.KZ</a
           >
         </div>
-      </section>
+      </section> -->
 
       <section id="products" class="section products">
         <div class="container">
@@ -256,7 +252,7 @@
                   data-topic="Размещение клиники на 103.KZ"
                   >Разместить клинику</a
                 >
-                <a href="#" data-tariffs class="btn btn-sm btn-line"
+                <a href="#" data-tariffs="portal" class="btn btn-sm btn-line"
                   >Подробнее</a
                 >
               </div>
@@ -304,11 +300,55 @@
                   data-topic="Демо МИС MedElement"
                   >Запросить демо</a
                 >
+                <a href="#" data-tariffs="mis" class="btn btn-sm btn-line"
+                  >Подробнее</a
+                >
+              </div>
+            </article>
+            <article class="product">
+              <div class="product-head">
+                <img
+                  src="images/logo-macdent.svg"
+                  alt="Логотип MacDent"
+                  class="logo-ph"
+                />
+                <div>
+                  <small class="t-blue">МИС для стоматологий, клиник</small>
+                  <h3>MacDent</h3>
+                </div>
+              </div>
+              <ul class="checks t-blue">
+                <li>
+                  <svg class="ic" width="20" height="20">
+                    <use href="#i-check" /></svg
+                  ><span style="color: var(--ink)"
+                    >Приёмы, пациенты и оплаты</span
+                  >
+                </li>
+                <li>
+                  <svg class="ic" width="20" height="20">
+                    <use href="#i-check" /></svg
+                  ><span style="color: var(--ink)"
+                    >Отчёты, статистика и учет расхода материалов</span
+                  >
+                </li>
+                <li>
+                  <svg class="ic" width="20" height="20">
+                    <use href="#i-check" /></svg
+                  ><span style="color: var(--ink)"
+                    >Маркетинг и рассылки WhatsApp</span
+                  >
+                </li>
+              </ul>
+              <div class="product-btns">
                 <a
-                  href="https://medelement.com"
-                  class="btn btn-sm btn-line"
-                  target="_blank"
-                  rel="noopener"
+                  href="#contact"
+                  data-modal
+                  class="btn btn-sm btn-blue"
+                  data-topic="Демо MacDent"
+                  >Запросить демо</a
+                >
+                <a href="#" data-tariffs="macdent" class="btn btn-sm btn-line"
                   >Подробнее</a
                 >
               </div>
@@ -466,10 +506,10 @@
         <div>
           <div class="logo">
             <img
-              src="images/logo-horizontal-light.svg"
+              src="images/logo-light.png"
               alt="medca.kz"
-              width="207"
-              height="40"
+              width="194"
+              height="44"
             />
           </div>
           <div class="footer-desc">
@@ -576,13 +616,14 @@
             <path d="M6 6l12 12M18 6L6 18" />
           </svg>
         </button>
-        <h2 id="tariffsTitle">Пакеты размещения на 103.KZ</h2>
-        <p class="modal-text">
+        <h2 id="tariffsTitle">Пакеты</h2>
+        <p class="modal-text" id="tariffsText">
           Выберите пакет: по кнопке «Оставить заявку» откроется WhatsApp с
           готовым сообщением.
         </p>
         <p class="tariffs-hint">Листайте, чтобы сравнить пакеты →</p>
         <div class="tariffs" id="tariffList"></div>
+        <div class="tariffs-note" id="tariffsNote" hidden></div>
       </div>
     </dialog>
 

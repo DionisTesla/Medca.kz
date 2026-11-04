@@ -15,6 +15,8 @@
 	--f-head: 'Unbounded', sans-serif;
 	--f-body: 'Onest', 'Segoe UI', sans-serif;
 	--pad: 20px;
+	--blue: #0011C5;
+	--orange: #FF8E00;
 }
 
 *,
@@ -128,6 +130,16 @@ h2 {
 	color: var(--teal);
 }
 
+.btn-blue {
+	background: var(--blue);
+	color: var(--white);
+}
+
+.btn-light {
+	background: var(--white);
+	color: var(--blue);
+}
+
 .btn-line {
 	border-color: var(--ink);
 }
@@ -167,7 +179,7 @@ h2 {
 .logo img {
 	display: block;
 	width: auto;
-	height: 34px;
+	height: 38px;
 }
 
 .header-actions {
@@ -510,6 +522,10 @@ h2 {
 	color: var(--accent);
 }
 
+.t-blue {
+	color: var(--blue);
+}
+
 /* ===== Как начать ===== */
 
 .steps {
@@ -719,7 +735,7 @@ h2 {
 }
 
 .footer .logo img {
-	height: 40px;
+	height: 44px;
 }
 
 .footer-desc {
@@ -783,7 +799,7 @@ h2 {
 	}
 
 	.logo img {
-		height: 38px;
+		height: 42px;
 	}
 
 	h2 {
@@ -849,7 +865,7 @@ h2 {
 	}
 
 	.logo img {
-		height: 42px;
+		height: 46px;
 	}
 
 	.header .container {
@@ -1199,6 +1215,170 @@ body.modal-open {
 		flex: 0 0 320px;
 		scroll-snap-align: start;
 	}
+}
+
+/* ===== Окно с пакетами: тема MedElement и примечание ===== */
+
+.modal[data-theme="mis"] .plan-label,
+.modal[data-theme="mis"] .plan .checks,
+.modal[data-theme="mis"] .tariffs-note li svg {
+	color: var(--accent);
+}
+
+.tariffs-note {
+	padding: 20px;
+	border: 1px solid var(--line);
+	border-radius: 20px;
+	background: var(--white);
+	font-size: 15px;
+}
+
+.tariffs-note b {
+	display: block;
+	margin-bottom: 12px;
+	font-size: 16px;
+}
+
+.tariffs-note ul {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.tariffs-note li {
+	display: flex;
+	gap: 10px;
+	color: var(--muted);
+}
+
+.tariffs-note li svg {
+	margin-top: 2px;
+	color: var(--teal);
+}
+
+@media (min-width: 768px) {
+	.tariffs-note ul {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px 32px;
+	}
+}
+
+/* ===== Окно с тарифами MacDent (синяя тема) ===== */
+
+.plan-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin: 0;
+}
+
+.plan-meta div {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.plan-meta dt {
+	color: var(--muted);
+	font-size: 13px;
+}
+
+.plan-meta dd {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.price-opts {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.price-opt {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 14px;
+	border: 1.5px solid var(--line2);
+	border-radius: 12px;
+	background: transparent;
+	color: inherit;
+	font-weight: 600;
+	text-align: left;
+	cursor: pointer;
+}
+
+.price-opt small {
+	font-size: 13px;
+	font-weight: 400;
+	opacity: 0.8;
+}
+
+.price-opt[aria-pressed="true"] {
+	border-color: var(--orange);
+	background: rgba(255, 142, 0, 0.14);
+	color: var(--orange);
+}
+
+.modal[data-theme="macdent"] {
+	background: var(--blue);
+	color: var(--white);
+}
+
+.modal[data-theme="macdent"] .modal-text,
+.modal[data-theme="macdent"] .tariffs-hint {
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.modal[data-theme="macdent"] .modal-close {
+	color: var(--white);
+}
+
+.modal[data-theme="macdent"] .modal-close:hover {
+	background: rgba(255, 255, 255, 0.16);
+}
+
+.modal[data-theme="macdent"] .plan {
+	border: 1.5px solid rgba(255, 255, 255, 0.7);
+	background: rgba(255, 255, 255, 0.08);
+	color: var(--white);
+}
+
+.modal[data-theme="macdent"] .plan-label,
+.modal[data-theme="macdent"] .plan-meta dt,
+.modal[data-theme="macdent"] .plan-price small,
+.modal[data-theme="macdent"] .plan .checks small {
+	color: rgba(255, 255, 255, 0.72);
+}
+
+.modal[data-theme="macdent"] .plan-price {
+	color: var(--orange);
+}
+
+.modal[data-theme="macdent"] .plan .checks {
+	color: var(--orange);
+}
+
+.modal[data-theme="macdent"] .plan .checks span {
+	color: var(--white);
+}
+
+.modal[data-theme="macdent"] .price-opt {
+	border-color: rgba(255, 255, 255, 0.35);
+}
+
+.modal[data-theme="macdent"] .price-opt[aria-pressed="true"] {
+	border-color: var(--orange);
+}
+
+.modal[data-theme="macdent"] :focus-visible {
+	outline-color: var(--white);
 }
 
 /* на широких экранах все три пакета помещаются, подсказка не нужна */
